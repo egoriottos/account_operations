@@ -1,5 +1,6 @@
 package org.test_task_account_balance.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,11 +21,11 @@ public class TransactionController {
     private final TransactionService transactionService;
 
     @PostMapping("/wallet")
-    public ResponseEntity<Transaction> operation(@RequestBody OperationDto dto) {
-        if (dto.getOperationType() == OperationType.DEPOSIT) {
+    public ResponseEntity<Transaction> operation(@Valid @RequestBody OperationDto dto) {
+        if (dto.getOperationType().equals(OperationType.DEPOSIT.toString())) {
             var response = transactionService.deposit(dto);
             return ResponseEntity.ok(response);
-        } else if (dto.getOperationType() == OperationType.WITHDRAW) {
+        } else if (dto.getOperationType().equals(OperationType.WITHDRAW.toString())) {
             var response = transactionService.withdraw(dto);
             return ResponseEntity.ok(response);
         } else {

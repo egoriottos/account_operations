@@ -34,7 +34,7 @@ public class Transaction {
     private BigDecimal amount;
 
     @ManyToOne
-    @JoinColumn(name = "balance_name")
+    @JoinColumn(name = "balance_id", referencedColumnName = "id")
     private Balance balance;
 
     private LocalDateTime createdAt;
